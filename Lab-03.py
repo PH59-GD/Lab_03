@@ -9,6 +9,7 @@ class Book:
         self.Author_ID = ""
         self.Publisher = ""
         self.Year_of_publication = ""
+        self.Checked_out = 0
     def Create_new_book(self):
         self.Book_ID = input("Book ID: ")
         self.Book_title = input("Book Title: ")
@@ -19,6 +20,8 @@ class Book:
         for i in range(len(LAuthor)):
             if UC == LAuthor[i].AuthorID:
                 self.Author_ID = LAuthor[i].AuthorID
+                
+                
     def Display_book(self):
         print("Book Title:", self.Book_title)
         print("Book ID:", self.Book_ID)
@@ -33,7 +36,7 @@ class Author:
         self.Country = ""
         self.Phone = ""
         self.Email_ID = ""
-        self.NOBCO = ""
+        self.AuthoredB = []
     def Create_new_author(self):
         self.Author_ID = input("Author ID: ")
         self.Author_Name = input("Author name: ")
@@ -49,7 +52,12 @@ class Author:
         print("Phone:", self.Phone)
         print("Email ID:", self.Email_ID)
     def Display_num_book_CO(self):
-        print("Number of books checked out:", self.NOBCO)
+        print("Authored Books:", str(len(self.AuthoredB)))
+        if len(self.AuthoredB) > 0:
+            for i in range(len(self.AuthoredB)):
+                for b in range(len(LBooks)):
+                    if self.AuthoredB[i] == LBooks[i].Book_ID:
+                        print("Title: "+LBooks[i].Book_title+" ID:"+ LBooks[i].Book_ID+ " Number Checked out: "+ str(LBooks[i].Checked_out))
 class User:
     def __init__(self):
         self.User_ID = ""
@@ -96,6 +104,7 @@ while True:
             Book = Book()
             Book.Create_new_book()
             LBooks.append(Book)
+            print(LBooks)
         if UC == "2":
             UC = input("Book ID: ")
             OC = input("Enter Author's ID: ")
@@ -107,10 +116,12 @@ while True:
             for i in range(len(LBooks)):
                 if(UC == LBooks[i].Book_ID):
                     LBooks[i].Author_ID = OC
+                    LAuthor[b].AuthoredB.append( LBooks[i].Book_ID)
         if UC == "3":
             UC = input("Book ID: ")
-            if (UC == LBooks[i].Book_ID):
-                LBooks[i].Display_book()
+            for i in range(len(LBooks)):
+                if (UC == LBooks[i].Book_ID):
+                    LBooks[i].Display_book()
     if UC == "2":
         print("")
         print("[1] Add User")
@@ -118,6 +129,26 @@ while True:
         print("[3] Borrow a book")
         print("")
         UC = input("Input: ")
+        if UC == "1":
+            User = User()
+            User.Create_new_user()
+            LUser.append(User)
+            print(LUser)
+        if UC == "2":
+            UC = input("User ID: ")
+            for i in range(len(LUser)):
+                if (UC == LUser[i].User_ID):
+                    LUser[i].Display_user()
+        if UC == "3":
+            CB = input("Enter book ID: ")
+            CU = input("Enter User ID: ")
+            for i in range(len(LBooks)):
+                if CB == LBooks[i].Book_ID:
+                    pass
+            for a in range(len(LUser)):
+                if CU == LUser[a].User_ID:
+                    LUser[a].Books_borrowed.append(LBooks[i].Book_ID)
+                    LBooks[i].Checked_out += 1
     if UC == "3":
         print("")
         print("[1] Add Author")
@@ -125,4 +156,19 @@ while True:
         print("[3] Display Checked out books")
         print("")
         UC = input("Input: ")
-
+        if UC == "1":
+            Author = Author()
+            Author.Create_new_author()
+            LAuthor.append(Author)
+            print(LAuthor)
+        if UC == "2":
+            UC = input("Author ID: ")
+            for i in range(len(LAuthor)):
+                if (UC == LAuthor[i].Author_ID):
+                    LAuthor[i].Display_author()
+        if UC == "3":
+            CA = input("Enter Author ID: ")
+            for i in range(len(LAuthor)):
+                if CA == LAuthor[i].Author_ID:
+                    LAuthor[i].Display_num_book_CO()
+                    
