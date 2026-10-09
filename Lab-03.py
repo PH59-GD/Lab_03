@@ -9,7 +9,6 @@ class Book:
         self.Author_ID = ""
         self.Publisher = ""
         self.Year_of_publication = ""
-        self.NOBCO = ""
     def Create_new_book(self):
         self.Book_ID = input("Book ID: ")
         self.Book_title = input("Book Title: ")
@@ -34,6 +33,7 @@ class Author:
         self.Country = ""
         self.Phone = ""
         self.Email_ID = ""
+        self.NOBCO = ""
     def Create_new_author(self):
         self.Author_ID = input("Author ID: ")
         self.Author_Name = input("Author name: ")
